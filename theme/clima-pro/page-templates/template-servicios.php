@@ -16,6 +16,7 @@ get_header(); ?>
 <div class="container section services">
 	<?php foreach ( clima_pro_services() as $i => $s ) : ?>
 		<article class="service-card reveal" style="--d:<?php echo (int) $i; ?>">
+			<div class="service-card__media"><img src="<?php echo clima_pro_img( $s['photo'] ); ?>" alt="<?php echo esc_attr( $s['title'] ); ?>" width="800" height="600" loading="<?php echo $i < 2 ? 'eager' : 'lazy'; ?>"></div>
 			<div class="service-card__icon"><?php echo clima_pro_icon( $s['icon'] ); // phpcs:ignore ?></div>
 			<h2><?php echo esc_html( $s['title'] ); ?></h2>
 			<p><?php echo esc_html( $s['desc'] ); ?></p>

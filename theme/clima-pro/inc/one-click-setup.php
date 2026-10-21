@@ -42,7 +42,59 @@ function clima_pro_sample_products() {
 		array( 'CP-HER-002', 'Bomba de vacío 2 etapas 1/4 HP', 215000, 'bombas-de-vacio', 'Bomba de vacío doble etapa, 5 CFM.' ),
 		array( 'CP-ELE-001', 'Heladera con freezer 340 L', 865000, 'linea-blanca', 'Heladera no frost con freezer superior, eficiencia A.' ),
 		array( 'CP-ELE-002', 'Exhibidora vertical 1 puerta 400 L', 1290000, 'linea-comercial', 'Exhibidora de bebidas con puerta de vidrio y luz LED.' ),
+		array( 'CP-ELE-003', 'Lavarropas automático carga frontal 8 kg', 745000, 'linea-blanca', 'Lavarropas automático de carga frontal, 1200 rpm, 8 kg.' ),
+		array( 'CP-ELE-004', 'Aire acondicionado split frío/calor 3000 frigorías', 980000, 'linea-blanca', 'Equipo split inverter frío/calor, gas R410a, con kit de instalación.' ),
+		array( 'CP-INS-005', 'Placa electrónica universal para split', 58900, 'electronica', 'Placa de control universal para equipos split, con control remoto.' ),
 	);
+}
+
+/** Foto (assets/img/products/*.jpg) de cada producto de muestra por SKU. */
+function clima_pro_sample_images() {
+	return array(
+		'CP-INS-001' => 'compresor', 'CP-INS-002' => 'cobre', 'CP-INS-003' => 'termostato', 'CP-INS-004' => 'cables',
+		'CP-INS-005' => 'placa', 'CP-HER-001' => 'manometro', 'CP-HER-002' => 'bomba', 'CP-ELE-001' => 'heladera',
+		'CP-ELE-002' => 'exhibidora', 'CP-ELE-003' => 'lavarropas', 'CP-ELE-004' => 'split',
+	);
+}
+
+/** Foto de cada categoría por slug. */
+function clima_pro_category_images() {
+	return array(
+		'insumos' => 'compresor', 'compresores' => 'compresor', 'piezas-mecanicas' => 'compresor', 'cables' => 'cables',
+		'electronica' => 'placa', 'afines-a-climatizacion' => 'cobre', 'herramientas' => 'manometro', 'manometros' => 'manometro',
+		'bombas-de-vacio' => 'bomba', 'recuperadores' => 'bomba', 'herramientas-de-mano' => 'manometro',
+		'electrodomesticos' => 'heladera', 'linea-blanca' => 'lavarropas', 'linea-comercial' => 'exhibidora',
+	);
+}
+
+/**
+ * Importa una foto del theme a la Biblioteca de medios (una sola vez) y devuelve su ID.
+ *
+ * @param string $name Nombre del archivo en assets/img/products sin extensión.
+ * @return int
+ */
+function clima_pro_theme_attachment( $name ) {
+	$map = get_option( 'clima_pro_media', array() );
+	if ( ! empty( $map[ $name ] ) && get_post( $map[ $name ] ) ) {
+		return (int) $map[ $name ];
+	}
+	$src = CLIMA_PRO_DIR . '/assets/img/products/' . $name . '.jpg';
+	if ( ! file_exists( $src ) ) {
+		return 0;
+	}
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/media.php';
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	$tmp = wp_tempnam( $name . '.jpg' );
+	copy( $src, $tmp );
+	$id = media_handle_sideload( array( 'name' => 'clima-pro-' . $name . '.jpg', 'tmp_name' => $tmp ), 0, 'Clima Pro - ' . $name );
+	if ( is_wp_error( $id ) ) {
+		@unlink( $tmp ); // phpcs:ignore
+		return 0;
+	}
+	$map[ $name ] = $id;
+	update_option( 'clima_pro_media', $map, false );
+	return (int) $id;
 }
 
 /**
@@ -75,6 +127,20 @@ function clima_pro_run_setup( $with_samples = false ) {
 		}
 	} else {
 		$log[] = 'WooCommerce no está activo: no se crearon categorías.';
+	}
+
+	// 1b) Foto de cada categoría (solo si todavía no tiene una).
+	if ( taxonomy_exists( 'product_cat' ) ) {
+		foreach ( clima_pro_category_images() as $slug => $img ) {
+			$t = get_term_by( 'slug', $slug, 'product_cat' );
+			if ( $t && ! get_term_meta( $t->term_id, 'thumbnail_id', true ) ) {
+				$aid = clima_pro_theme_attachment( $img );
+				if ( $aid ) {
+					update_term_meta( $t->term_id, 'thumbnail_id', $aid );
+				}
+			}
+		}
+		$log[] = 'Fotos de categorías asignadas.';
 	}
 
 	// 2) Páginas.
@@ -146,7 +212,15 @@ function clima_pro_run_setup( $with_samples = false ) {
 	// 6) Productos de muestra.
 	if ( $with_samples && class_exists( 'WC_Product_Simple' ) ) {
 		foreach ( clima_pro_sample_products() as $sp ) {
-			if ( wc_get_product_id_by_sku( $sp[0] ) ) {
+			$existing = wc_get_product_id_by_sku( $sp[0] );
+			if ( $existing ) {
+				// Ya existe: solo completar la foto si le falta.
+				$imgs = clima_pro_sample_images();
+				$ep   = wc_get_product( $existing );
+				if ( $ep && ! $ep->get_image_id() && isset( $imgs[ $sp[0] ] ) ) {
+					$ep->set_image_id( clima_pro_theme_attachment( $imgs[ $sp[0] ] ) );
+					$ep->save();
+				}
 				continue;
 			}
 			$t = get_term_by( 'slug', $sp[3], 'product_cat' );
@@ -158,6 +232,10 @@ function clima_pro_run_setup( $with_samples = false ) {
 			$p->set_short_description( $sp[4] );
 			$p->set_featured( true );
 			$p->set_stock_status( 'instock' );
+			$imgs = clima_pro_sample_images();
+			if ( isset( $imgs[ $sp[0] ] ) ) {
+				$p->set_image_id( clima_pro_theme_attachment( $imgs[ $sp[0] ] ) );
+			}
 			if ( $t ) {
 				$p->set_category_ids( array( $t->term_id ) );
 			}
@@ -208,7 +286,7 @@ function clima_pro_setup_page() {
 		<p>Crea (sin duplicar) las categorías y subcategorías, las páginas Servicios y Contacto, la portada, el menú con las 5 secciones y ajusta WooCommerce en modo catálogo.</p>
 		<form method="post">
 			<?php wp_nonce_field( 'clima_pro_setup' ); ?>
-			<p><label><input type="checkbox" name="with_samples" value="1"> Crear también 8 productos de muestra</label></p>
+			<p><label><input type="checkbox" name="with_samples" value="1"> Crear también 11 productos de muestra (con fotos)</label></p>
 			<p><button class="button button-primary button-hero" name="clima_pro_setup" value="1">Ejecutar configuración</button></p>
 		</form>
 		<?php if ( $log ) : ?>

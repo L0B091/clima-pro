@@ -7,7 +7,7 @@
 get_header();
 ?>
 <section class="hero">
-	<div class="hero__bg" aria-hidden="true"><img src="<?php echo clima_pro_img( 'hero.svg' ); ?>" alt="" width="1440" height="560" fetchpriority="high"></div>
+	<div class="hero__bg" aria-hidden="true"><img src="<?php echo clima_pro_img( 'hero.webp' ); ?>" alt="Técnico de Clima Pro revisando un aire acondicionado con manómetros" width="1024" height="576" fetchpriority="high"></div>
 	<div class="container hero__inner">
 		<div class="hero__content reveal">
 			<p class="eyebrow">Tu aliado en climatización</p>
@@ -35,16 +35,20 @@ get_header();
 <section class="container section cat-cards" aria-label="Secciones">
 	<?php
 	$cards = array(
-		array( 'Insumos', 'Compresores, piezas, cables, electrónica', clima_pro_cat_url( 'insumos' ), 'cat-insumos.svg' ),
-		array( 'Servicios', 'Instalación y reparación', clima_pro_page_url( 'servicios' ), 'cat-servicios.svg' ),
-		array( 'Herramientas', 'Manómetros, bombas, recuperadores', clima_pro_cat_url( 'herramientas' ), 'cat-herramientas.svg' ),
-		array( 'Electrodomésticos', 'Línea blanca y comercial', clima_pro_cat_url( 'electrodomesticos' ), 'cat-electrodomesticos.svg' ),
-		array( 'Contacto', 'Escribinos o visitanos', clima_pro_page_url( 'contacto' ), 'cat-contacto.svg' ),
+		array( 'Insumos', 'Compresores, piezas, cables, electrónica', clima_pro_cat_url( 'insumos' ), 'products/compresor.webp' ),
+		array( 'Servicios', 'Instalación y reparación', clima_pro_page_url( 'servicios' ), 'products/split.webp' ),
+		array( 'Herramientas', 'Manómetros, bombas, recuperadores', clima_pro_cat_url( 'herramientas' ), 'products/manometro.webp' ),
+		array( 'Electrodomésticos', 'Línea blanca y comercial', clima_pro_cat_url( 'electrodomesticos' ), 'products/heladera.webp' ),
+		array( 'Contacto', 'Escribinos o visitanos', clima_pro_page_url( 'contacto' ), '' ),
 	);
 	foreach ( $cards as $i => $c ) :
 		?>
 		<a class="cat-card reveal" style="--d:<?php echo (int) $i; ?>" href="<?php echo esc_url( $c[2] ); ?>">
-			<img src="<?php echo clima_pro_img( $c[3] ); ?>" alt="" width="200" height="140" loading="lazy">
+			<?php if ( $c[3] ) : ?>
+				<img src="<?php echo clima_pro_img( $c[3] ); ?>" alt="" width="400" height="400" loading="lazy">
+			<?php else : ?>
+				<span class="cat-card__wa"><?php echo clima_pro_wa_icon(); // phpcs:ignore ?></span>
+			<?php endif; ?>
 			<strong><?php echo esc_html( $c[0] ); ?></strong>
 			<span><?php echo esc_html( $c[1] ); ?> <b aria-hidden="true">→</b></span>
 		</a>
@@ -53,7 +57,7 @@ get_header();
 
 <section class="container promos">
 	<div class="promo promo--dark reveal">
-		<img src="<?php echo clima_pro_img( 'banner-servicio.svg' ); ?>" alt="" width="320" height="260" loading="lazy">
+		<img src="<?php echo clima_pro_img( 'banner-servicio.webp' ); ?>" alt="Técnico reparando una heladera comercial" width="800" height="600" loading="lazy">
 		<div>
 			<p class="eyebrow">Servicio técnico</p>
 			<h2>Tu equipo en buenas manos</h2>
@@ -62,7 +66,7 @@ get_header();
 		</div>
 	</div>
 	<div class="promo promo--light reveal">
-		<img src="<?php echo clima_pro_img( 'banner-insumos.svg' ); ?>" alt="" width="320" height="260" loading="lazy">
+		<img src="<?php echo clima_pro_img( 'banner-insumos.webp' ); ?>" alt="Compresor, caños de cobre, manómetros y bomba de vacío" width="800" height="600" loading="lazy">
 		<div>
 			<p class="eyebrow">Insumos y herramientas</p>
 			<h2>Todo lo que necesitás en un solo lugar</h2>

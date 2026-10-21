@@ -33,7 +33,13 @@ clima-pro/
     └── assets/
         ├── css/main.css           # Estilos + animaciones (respeta "reducir movimiento")
         ├── js/main.js             # Menú móvil, filtros y aparición al hacer scroll (sin jQuery)
-        └── img/                   # Logo, íconos e ilustraciones SVG originales de Clima Pro
+        └── img/
+            ├── logo-clima-pro.svg/.png       # Logo para fondo azul (encabezado y pie)
+            ├── logo-clima-pro-dark.svg/.png  # Logo para fondo claro
+            ├── favicon.svg, placeholder.svg, icons/*.svg
+            ├── hero.webp, banner-*.webp      # Fotos del inicio
+            ├── products/*.webp + *.jpg       # Fotos de producto (webp para la web, jpg para la Biblioteca de medios)
+            └── services/*.webp               # Fotos de las tarjetas de Servicios
 ```
 
 **Theme independiente (no es child theme):** no depende de Astra ni GeneratePress. Así hay un solo theme para instalar y actualizar, sin riesgo de que un cambio del theme padre rompa el diseño, y carga menos CSS/JS.
@@ -80,7 +86,8 @@ Andá a **Apariencia > Clima Pro** y tocá **Ejecutar configuración**. Crea (si
 - La portada estática (Inicio).
 - El menú principal con las 5 secciones (también se usa en el pie).
 - Ajustes de WooCommerce para catálogo.
-- Opcional: marcá **Crear también 8 productos de muestra**.
+- Fotos de cada categoría (se importan una sola vez a la Biblioteca de medios).
+- Opcional: marcá **Crear también 11 productos de muestra (con fotos)**.
 
 Al activar el theme esto ya se ejecuta una vez (sin productos de muestra). Si WooCommerce todavía no estaba activo, volvé a ejecutarlo después de activarlo.
 
@@ -119,7 +126,7 @@ Se editan en **Productos > Categorías**. Para agregar una subcategoría, creá 
 ## 8. Importar productos en bloque (CSV)
 
 1. **Productos > Todos los productos > Importar** (o el botón en **Apariencia > Clima Pro**).
-2. Elegí `sample-data/productos-muestra.csv` (o tu propio archivo) y tocá **Continuar**.
+2. Elegí `sample-data/productos-muestra.csv` (o tu propio archivo; las fotos de muestra se descargan desde este repositorio de GitHub) y tocá **Continuar**.
 3. Revisá el mapeo de columnas y tocá **Ejecutar el importador**.
 
 Formato de las columnas principales:
@@ -156,3 +163,9 @@ Las secciones de pedidos y pagos de la app no se usan porque el sitio es solo ca
 
 - `php -l` sin errores en todos los archivos PHP.
 - WordPress 6.x + WooCommerce (última versión) con SQLite en local: activación del theme, configuración en un clic, carrito/checkout redirigiendo a la tienda, links de WhatsApp con el mensaje codificado, filtros de precio y vistas de escritorio y móvil.
+
+## Imágenes y logo
+
+- Todas las fotos (hero, banners, productos, categorías y servicios) son **imágenes originales generadas con IA para Clima Pro**: no tienen derechos de terceros, no muestran personas reales identificables ni logos de otras marcas. Están optimizadas en WebP (10–50 KB cada una).
+- Para reemplazarlas con fotos propias: cargá la foto destacada del producto o la miniatura de la categoría desde el panel (o desde la app de Android). Si un producto no tiene foto, se muestra automáticamente la foto de su categoría.
+- El logo es vectorial (texto convertido a curvas, tipografía Poppins ExtraBold, licencia OFL): copo de nieve blanco, "Clima" en blanco/azul y "Pro" en naranja `#ff7a1a`, con la bajada "Climatización, servicio técnico e insumos". Hay versión para fondo oscuro y para fondo claro, en SVG y PNG.

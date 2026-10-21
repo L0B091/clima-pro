@@ -17,8 +17,7 @@
 <footer class="site-footer">
 	<div class="container footer__inner">
 		<div class="footer__brand">
-			<img src="<?php echo clima_pro_img( 'logo-clima-pro.svg' ); ?>" alt="Clima Pro" width="180" height="46" loading="lazy">
-			<p><?php echo esc_html( clima_pro_opt( 'clima_tagline' ) ); ?></p>
+			<img src="<?php echo clima_pro_img( 'logo-clima-pro.svg' ); ?>" alt="Clima Pro - Climatización, servicio técnico e insumos" width="330" height="72" loading="lazy">
 		</div>
 		<nav class="footer__nav" aria-label="Pie">
 			<?php wp_nav_menu( array( 'theme_location' => 'footer', 'container' => false, 'depth' => 1, 'fallback_cb' => 'clima_pro_fallback_menu' ) ); ?>

@@ -65,24 +65,28 @@ function clima_pro_services() {
 	return array(
 		array(
 			'icon'  => 'snowflake',
+			'photo' => 'services/aire.webp',
 			'title' => 'Aire acondicionado',
 			'desc'  => 'Instalación y reparación de equipos split, ventana y centrales. Carga de gas, limpieza y mantenimiento.',
 			'items' => array( 'Instalación', 'Reparación' ),
 		),
 		array(
 			'icon'  => 'fridge',
+			'photo' => 'services/heladera.webp',
 			'title' => 'Heladera familiar y comercial',
 			'desc'  => 'Instalación y reparación de heladeras, freezers, exhibidoras y cámaras.',
 			'items' => array( 'Instalación', 'Reparación' ),
 		),
 		array(
 			'icon'  => 'washer',
+			'photo' => 'services/lavarropas.webp',
 			'title' => 'Lavarropas automático',
 			'desc'  => 'Instalación y reparación de lavarropas automáticos de carga frontal y superior.',
 			'items' => array( 'Instalación', 'Reparación' ),
 		),
 		array(
 			'icon'  => 'home',
+			'photo' => 'services/hogar.webp',
 			'title' => 'Hogar',
 			'desc'  => 'Soluciones para tu casa o local, con personal de confianza.',
 			'items' => array( 'Cerrajería', 'Construcción en general', 'Durlock y pintura', 'Plomería', 'Electricidad' ),

@@ -11,6 +11,12 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
+// La descripción de la categoría ya se muestra en la cabecera.
+add_action( 'wp', function () {
+	remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
+	remove_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
+} );
+
 // El título ya se muestra en la cabecera de la página.
 add_filter( 'woocommerce_show_page_title', '__return_false' );
 
@@ -134,9 +140,10 @@ add_filter( 'woocommerce_product_get_image', function ( $html, $product, $size, 
 		return $html;
 	}
 	$map = array(
-		'compresores' => 'compresor', 'piezas-mecanicas' => 'compresor', 'cables' => 'cables', 'electronica' => 'termostato',
+		'compresores' => 'compresor', 'piezas-mecanicas' => 'compresor', 'cables' => 'cables', 'electronica' => 'placa',
 		'afines-a-climatizacion' => 'cobre', 'manometros' => 'manometro', 'bombas-de-vacio' => 'bomba', 'recuperadores' => 'bomba',
 		'herramientas-de-mano' => 'manometro', 'linea-blanca' => 'heladera', 'linea-comercial' => 'exhibidora',
+		'insumos' => 'compresor', 'herramientas' => 'manometro', 'electrodomesticos' => 'heladera',
 	);
 	$img = 'placeholder';
 	foreach ( (array) $product->get_category_ids() as $cid ) {
@@ -146,7 +153,8 @@ add_filter( 'woocommerce_product_get_image', function ( $html, $product, $size, 
 			break;
 		}
 	}
-	return sprintf( '<img src="%s" alt="%s" width="400" height="400" loading="lazy" decoding="async" class="wp-post-image">', clima_pro_img( $img . '.svg' ), esc_attr( $product->get_name() ) );
+	$file = ( 'placeholder' === $img ) ? 'placeholder.svg' : $img . '.webp';
+	return sprintf( '<img src="%s" alt="%s" width="800" height="800" loading="lazy" decoding="async" class="wp-post-image">', clima_pro_img( $file ), esc_attr( $product->get_name() ) );
 }, 10, 5 );
 
 // Ficha de producto sin imagen: usar la misma ilustración por categoría.

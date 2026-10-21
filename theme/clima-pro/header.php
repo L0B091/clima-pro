@@ -22,9 +22,8 @@
 				<?php if ( has_custom_logo() ) : ?>
 					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'brand__img', 'loading' => 'eager' ) ); ?>
 				<?php else : ?>
-					<img class="brand__img" src="<?php echo clima_pro_img( 'logo-clima-pro.svg' ); ?>" alt="Clima Pro" width="220" height="56">
+					<img class="brand__img" src="<?php echo clima_pro_img( 'logo-clima-pro.svg' ); ?>" alt="Clima Pro - Climatización, servicio técnico e insumos" width="330" height="72">
 				<?php endif; ?>
-				<span class="brand__tagline"><?php echo esc_html( clima_pro_opt( 'clima_tagline' ) ); ?></span>
 			</a>
 			<form class="header-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<label class="screen-reader-text" for="hs">Buscar productos</label>

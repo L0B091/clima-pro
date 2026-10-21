@@ -7,7 +7,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'CLIMA_PRO_VERSION', '1.0.0' );
+define( 'CLIMA_PRO_VERSION', '1.1.0' );
 define( 'CLIMA_PRO_DIR', get_template_directory() );
 define( 'CLIMA_PRO_URI', get_template_directory_uri() );
 
