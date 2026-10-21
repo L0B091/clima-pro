@@ -1,0 +1,12 @@
+/*
+Theme Name: Clima Pro
+Theme URI: https://github.com/L0B091/clima-pro
+Author: Clima Pro
+Description: Theme liviano e independiente para Clima Pro: catálogo de insumos, herramientas, electrodomésticos y servicio técnico, con consultas por WhatsApp (WooCommerce en modo catálogo).
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GPLv2 or later
+Text Domain: clima-pro
+*/
+/* Los estilos reales están en assets/css/main.css (se cargan desde inc/assets.php). */

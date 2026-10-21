@@ -1,0 +1,9 @@
+Type,SKU,Name,Published,Is featured?,Visibility in catalog,Short description,Description,In stock?,Regular price,Categories,Images
+simple,CP-INS-001,Compresor 1/4 HP R134a,1,1,visible,"Compresor hermético para heladeras familiares, gas R134a, 220 V.","Compresor hermético para heladeras familiares, gas R134a, 220 V.",1,142500,Insumos > Compresores,
+simple,CP-INS-002,"Caño de cobre 1/4"" (rollo 15 m)",1,1,visible,Caño de cobre recocido para refrigeración y aire acondicionado.,Caño de cobre recocido para refrigeración y aire acondicionado.,1,68900,Insumos > Afines a climatización,
+simple,CP-INS-003,Termostato digital STC-1000,1,1,visible,"Controlador de temperatura digital con sensor NTC, 220 V.","Controlador de temperatura digital con sensor NTC, 220 V.",1,32500,Insumos > Electrónica,
+simple,CP-INS-004,"Cable tipo taller 3x1,5 mm (rollo 10 m)",1,1,visible,Cable flexible para conexión de equipos.,Cable flexible para conexión de equipos.,1,21900,Insumos > Cables,
+simple,CP-HER-001,Manómetro de 2 vías R410a,1,1,visible,"Juego de manómetros con mangueras para R410a, R32 y R22.","Juego de manómetros con mangueras para R410a, R32 y R22.",1,92300,Herramientas > Manómetros,
+simple,CP-HER-002,Bomba de vacío 2 etapas 1/4 HP,1,1,visible,"Bomba de vacío doble etapa, 5 CFM.","Bomba de vacío doble etapa, 5 CFM.",1,215000,Herramientas > Bombas de vacío,
+simple,CP-ELE-001,Heladera con freezer 340 L,1,1,visible,"Heladera no frost con freezer superior, eficiencia A.","Heladera no frost con freezer superior, eficiencia A.",1,865000,Electrodomésticos > Línea blanca,
+simple,CP-ELE-002,Exhibidora vertical 1 puerta 400 L,1,1,visible,Exhibidora de bebidas con puerta de vidrio y luz LED.,Exhibidora de bebidas con puerta de vidrio y luz LED.,1,1290000,Electrodomésticos > Línea comercial,
